@@ -15,7 +15,7 @@ body {
 
 main {
     background-color: #F5F5F5;
-    height: 400px;
+    height: 600px;
     max-width: 800px;
     border-radius: 5px;
     padding: 20px;
@@ -77,4 +77,16 @@ main {
 
 .roll-dice:active {
     box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
+}
+
+.roll--count{
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.luck{
+    margin-top: -10px;
 }

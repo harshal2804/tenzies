@@ -7,6 +7,7 @@ export default function App() {
 
     const [dice, setDice] = React.useState(allNewDice())
     const [tenzies, setTenzies] = React.useState(false)
+    const [count, setCount] = React.useState(0)
     
     React.useEffect(() => {
         const allHeld = dice.every(die => die.isHeld)
@@ -35,6 +36,7 @@ export default function App() {
     
     function rollDice() {
         if(!tenzies) {
+            setCount(prevCount => ++prevCount)
             setDice(oldDice => oldDice.map(die => {
                 return die.isHeld ? 
                     die :
@@ -43,6 +45,7 @@ export default function App() {
         } else {
             setTenzies(false)
             setDice(allNewDice())
+            setCount(0)
         }
     }
     
@@ -52,6 +55,19 @@ export default function App() {
                 {value: die.value, id: die.id, isHeld: !die.isHeld} :
                 die
         }))
+    }
+
+    function luckMessage(count){
+        if(count<=10 && count>=1){
+            return (
+                <div className="luck">Looks like you have incerdible luck 😮</div>
+            )
+        }
+        else if(count>=20){
+            return(
+                <div className="luck">Looks like you are not a lucky person 😬</div>
+            )
+        }
     }
     
     const diceElements = dice.map(die => (
@@ -78,6 +94,8 @@ export default function App() {
             >
                 {tenzies ? "New Game" : "Roll"}
             </button>
+            {tenzies && <div className="roll--count">You took {count} rolls to finish the game.</div>}
+            {tenzies && luckMessage(count)}
         </main>
     )
 }
