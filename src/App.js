@@ -8,6 +8,9 @@ export default function App() {
     const [dice, setDice] = React.useState(allNewDice())
     const [tenzies, setTenzies] = React.useState(false)
     const [count, setCount] = React.useState(0)
+    let currentTime = new Date()
+    const [startTime, setStartTime] = React.useState(0)
+    const [endTime, setEndTime] = React.useState(0)
     
     React.useEffect(() => {
         const allHeld = dice.every(die => die.isHeld)
@@ -35,6 +38,7 @@ export default function App() {
     }
     
     function rollDice() {
+        if(count==0){setStartTime(currentTime.getMinutes()*60+currentTime.getSeconds())}
         if(!tenzies) {
             setCount(prevCount => ++prevCount)
             setDice(oldDice => oldDice.map(die => {
@@ -42,10 +46,12 @@ export default function App() {
                     die :
                     generateNewDie()
             }))
+            setEndTime(currentTime.getMinutes()*60+currentTime.getSeconds())
         } else {
             setTenzies(false)
             setDice(allNewDice())
             setCount(0)
+
         }
     }
     
@@ -94,7 +100,8 @@ export default function App() {
             >
                 {tenzies ? "New Game" : "Roll"}
             </button>
-            {tenzies && <div className="roll--count">You took {count} rolls to finish the game.</div>}
+            {tenzies && <div className="roll--count">Your time:  {endTime - startTime} sec</div>}
+            {tenzies && <div className="roll--count">Your roll count: {count}</div>}
             {tenzies && luckMessage(count)}
         </main>
     )
