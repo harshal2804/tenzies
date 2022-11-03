@@ -66,7 +66,7 @@ export default function App() {
     function luckMessage(count){
         if(count<=10 && count>=1){
             return (
-                <div className="luck">Looks like you have incerdible luck 😮</div>
+                <div className="luck">Looks like you have an incredible luck 😮</div>
             )
         }
         else if(count>=20){
